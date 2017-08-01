@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CRMS</title>
+  <meta charset="UTF-8">
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+
+  <!--for dashboard.html-->
+  <link rel="stylesheet" href="/app/styles/main.css">
+  <link rel="manifest" href="/app//manifest.json">
+  <!-- Polyfill(s) for older browsers -->
+  <script src="node_modules/core-js/client/shim.min.js"></script>
+
+  <script src="node_modules/zone.js/dist/zone.js"></script>
+
+  <script src="node_modules/reflect-metadata/Reflect.js"></script>
+  <script src="node_modules/systemjs/dist/system.src.js"></script>
+  <script type="text/javascript" src="/static/jquery-3.1.1.min.js"></script>
+  <!-- MDL JavaScript library  -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+  <script type='application/javascript' src='/app/dashboard/swevans/canvas-resizer-1.0.js'></script>
+  
+  
+
+  <script type="text/javascript" src="/static/msgpack.min.js"></script>
+  <script type="text/javascript" src="/static/smoothie.js"></script>
+  
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+
+  <script src="https://use.fontawesome.com/edba5f021d.js"></script>
+
+
+  <script type="text/javascript" src='node_modules/openseadragon/build/openseadragon/openseadragon.min.js'></script>
+  <script type="text/javascript" src='node_modules/openseadragon/build/openseadragon/openseadragon.js'></script>
+ 
+
+  <script src="systemjs.config.js"></script>
+  <script>
+    System.import('app').catch(function (err) { console.error(err); });
+  </script>
+</head>
+
+<body>
+  <my-app>Loading...</my-app>
+</body>
+
+</html>

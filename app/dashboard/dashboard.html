@@ -1,0 +1,1556 @@
+<div id="mainContainer">
+	<div class="patientsMainContainer">
+		<div class="header">
+			<div class="logo">FYVE</div>
+			<!--<div class="refreshBlock">
+				<span class="button" (click) = "refresh()">Refresh</span>
+				<div class="button" style="cursor:pointer;" (click)="refresh()">Refresh</div>
+			</div>-->
+			<div class="notifications">
+				<!--<div class="iconNotification" style="cursor:not-allowed">
+					<div class="counter">4</div>
+				</div>-->
+				<div class="notificationsList">
+					<div class="notificationsContainer">
+						<div class="notificationSingle">
+							<div class="icon patient"></div>
+							<div class="text">Patient discharged: Chayan Chatterjee (M35|W East Wing|Medanta)</div>
+							<div class="time">17/03 13:25</div>
+						</div>
+						<div class="notificationSingle">
+							<div class="icon patient"></div>
+							<div class="text">Patient discharged: Chayan Chatterjee (M35|W East Wing|Medanta)</div>
+							<div class="time">17/03 13:25</div>
+						</div>
+						<div class="notificationSingle">
+							<div class="icon alarm"></div>
+							<div class="text">Patient Alarm: Chayan Chatterjee (M35|W East Wing|Medanta)</div>
+							<div class="time">17/03 13:25</div>
+						</div>
+						<div class="notificationSingle">
+							<div class="icon patient"></div>
+							<div class="text">Patient added: Chayan Chatterjee (M35|W East Wing|Medanta)</div>
+							<div class="time">17/03 13:25</div>
+						</div>
+						<div class="notificationSingle">
+							<div class="icon patient"></div>
+							<div class="text">Patient discharged: Chayan Chatterjee (M35|W East Wing|Medanta)</div>
+							<div class="time">17/03 13:25</div>
+						</div>
+						<div class="noNotifications">
+							No recent notifications
+						</div>
+					</div>
+					<div class="buttonClear">Clear Notifications</div>
+				</div>
+			</div>
+			<button class="button" style="vertical-align:top;float: right; padding-top: 8px; padding-bottom: 10px;margin-top: 9px; background-color: #4fc3f7; color: white"
+			 (click)="logout()"><span>Logout </span></button>
+			<!--<div class="tabs">
+				<div class="tab active tabPatients">
+					<div class="icon"></div>
+					<div class="tabLabel">Patients</div>
+				</div>
+				<div class="tab tabAlarms">
+					<div class="icon"></div>
+					<div class="tabLabel">Alarms</div>
+				</div>
+			</div>-->
+		</div>
+
+		<div class="mobileHeader">
+			<div class="headerTitle">
+				All Patients
+			</div>
+			<div class="refreshBlock">
+				<span class="status">Data updated 5 min ago</span><span class="button">Refresh</span>
+			</div>
+		</div>
+		<div class="patientsContainer">
+			<!--<div class="filters filtersPatients">
+				<div class="search">
+					<div class="icon"></div>
+					<input type="text" placeholder="Search for patients here" class="patientSearch">
+				</div>
+				<div class="otherOptions">
+					<div class="option optionFilter">
+						<div class="icon"></div>
+						<div class="optionLabel">Filter</div>
+						<div class="optionDetails">
+							<div class="optionValue active default">All patients</div>
+							<div class="optionValue filtered">Old Patients</div>
+							<div class="optionValue filtered">Patients with recent alarms</div>
+						</div>
+					</div>
+					<div class="option optionSort">
+						<div class="icon"></div>
+						<div class="optionLabel">Sort</div>
+						<div class="optionDetails">
+							<div class="optionValue active default">Standard</div>
+							<div class="optionValue filtered">Age Decreasing</div>
+							<div class="optionValue filtered">Alarm</div>
+						</div>
+					</div>
+				</div>
+			</div>-->
+			<div class="patients">
+				<div class="listTitle">Patients</div>
+				<div class="patientsList urgent">
+					<!--**************************************************  Patient card *********************************************************-->
+					<div class="patientContainer " [ngClass]="key.value?.active ? 'alarm' : ''" id="patient_div" *ngFor='let key of cards | keys'>
+						<div class="patientInfo">
+							<div class="patientName">
+								{{key.value.details.patient_name || '--' }}
+							</div>
+							<div class="patientDetails">
+								<div class="detailsDesktop"> {{key.value.details.gender || ' ' }} {{key.value.details.age || ' ' }} | {{key.value.details.patient_bed_number ||
+									' ' }} {{key.value.details.hospital_name || ' '}}</div>
+								<div class="alarmDesktop active">
+									<div class="condition">
+										{{key.value.alarm || ' '}}
+										<div class="moreAlarms" *ngIf="key.value.cur_alrm_count >0">+{{key.value.cur_alrm_count}}</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<div class="patientStats">
+							<div class="kvPair" [ngClass]="key.value?.hrAlarm ? 'alarm' : ''">
+								<div class="key">HR</div>
+								<div class="value">{{key.value.hr|| '--'}}</div>
+							</div>
+							<div class="kvPair" [ngClass]="key.value?.respAlarm ? 'alarm' : ''">
+								<div class="key">RR</div>
+								<div class="value">{{key.value.rr|| '--'}}</div>
+							</div>
+							<div class="kvPair" [ngClass]="key.value?.spo2Alarm ? 'alarm' : ''">
+								<div class="key">SPO<sub>2</sub>(%)</div>
+								<div class="value">{{key.value.spo2|| '--'}}</div>
+							</div>
+							<div class="kvPair" [ngClass]="key.value?.tempAlarm ? 'alarm' : ''">
+								<div class="key">TEMP(F)</div>
+								<div class="value">{{key.value.temp1|| '--'}}/{{key.value.temp2 || '--'}}</div>
+							</div>
+							<div class="kvPair" [ngClass]="key.value?.nibpAlarm ? 'alarm' : ''">
+								<div class="key">NIBP(mmHg)</div>
+								<div class="value">{{key.value.nibpsys|| '--'}}/{{key.value.nibpdia || '--'}}</div>
+							</div>
+						</div>
+						<div class="actions">
+							<div class="action" [ngClass]="show.tab1 ? 'active' : ''">
+								<div class="actionName history" style="cursor:pointer;" (click)="detailsTab(key.value.details.patient_id,key.value.details.patient_name,key.value.details.gender, key.value.details.age,key.value.details.patient_bed_number,key.value.details.hospital_name, 'history')">History</div>
+							</div>
+							<div class="action" [ngClass]="show.tab2 ? 'active' : ''">
+								<div class="actionName vitals" style="cursor:pointer;" (click)="detailsTab(key.value.details.patient_id,key.value.details.patient_name,key.value.details.gender, key.value.details.age,key.value.details.patient_bed_number,key.value.details.hospital_name,'vitals')">Vitals</div>
+							</div>
+						</div>
+					</div>
+					<!--<div class="patientContainer">
+								<div class="patientInfo">
+									<div class="patientName alarm">
+										Haripad Bhatia
+									</div>
+									<div class="patientDetails">
+										<div class="detailsDesktop">M32 | B1 W5 City Hospital</div>										
+										<div class="alarmDesktop active">
+											<div class="condition">
+												Tachycardia
+												<div class="moreAlarms">+2</div>												
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="patientStats">
+									<div class="kvPair alarm">
+										<div class="key">HR</div>
+										<div class="value">102</div>
+									</div>
+									<div class="kvPair">
+										<div class="key">RR</div>
+										<div class="value">48</div>
+									</div>
+									<div class="kvPair">
+										<div class="key">SPO<sub>2</sub></div>
+										<div class="value">99</div>
+									</div>
+									<div class="kvPair">
+										<div class="key">TEMP</div>
+										<div class="value">98/102</div>
+									</div>
+									<div class="kvPair">
+										<div class="key">NIBP</div>
+										<div class="value">112/88</div>
+									</div>
+								</div>
+								<div class="actions">
+									<div class="action">
+										<div class="actionName history">History</div>
+									</div>
+									<div class="action">
+										<div class="actionName vitals">Vitals</div>
+									</div>
+								</div>
+							</div>-->
+					<!--<div class="patientContainer">
+								<div class="patientInfo">
+									<div class="patientName">
+										Haripad Bhatia
+									</div>
+									<div class="patientDetails">
+										<div class="detailsDesktop">M32 | B1 W5 City Hospital</div>										
+										<div class="alarmDesktop">
+										No recent alarms</div>
+									</div>
+								</div>
+								<div class="patientStats">
+									<div class="kvPair">
+										<div class="key">HR</div>
+										<div class="value">102</div>
+									</div>
+									<div class="kvPair">
+										<div class="key">RR</div>
+										<div class="value">48</div>
+									</div>
+									<div class="kvPair">
+										<div class="key">SPO<sub>2</sub></div>
+										<div class="value">99</div>
+									</div>
+									<div class="kvPair">
+										<div class="key">TEMP</div>
+										<div class="value">98/102</div>
+									</div>
+									<div class="kvPair">
+										<div class="key">NIBP</div>
+										<div class="value">112/88</div>
+									</div>
+								</div>
+								<div class="actions">
+									<div class="action">
+										<div class="actionName history">History</div>
+									</div>
+									<div class="action">
+										<div class="actionName vitals">Vitals</div>
+									</div>
+								</div>
+							</div>-->
+					<!--<div class="patientContainer">
+								<div class="patientInfo">
+									<div class="patientName">
+										Haripad Bhatia
+									</div>
+									<div class="patientDetails">
+										<div class="detailsDesktop">M32 | B1 W5 City Hospital</div>										
+										<div class="alarmDesktop">
+										Last alarm 10 min ago</div>
+									</div>
+								</div>
+								<div class="patientStats">
+									<div class="kvPair">
+										<div class="key">HR</div>
+										<div class="value">102</div>
+									</div>
+									<div class="kvPair">
+										<div class="key">RR</div>
+										<div class="value">48</div>
+									</div>
+									<div class="kvPair">
+										<div class="key">SPO<sub>2</sub></div>
+										<div class="value">99</div>
+									</div>
+									<div class="kvPair">
+										<div class="key">TEMP</div>
+										<div class="value">98/102</div>
+									</div>
+									<div class="kvPair">
+										<div class="key">NIBP</div>
+										<div class="value">112/88</div>
+									</div>
+								</div>
+								<div class="actions">
+									<div class="action">
+										<div class="actionName history">History</div>
+									</div>
+									<div class="action">
+										<div class="actionName vitals">Vitals</div>
+									</div>
+								</div>
+							</div>-->
+					<!--<div class="patientContainer">
+								<div class="patientInfo">
+									<div class="patientName">
+										Haripad Bhatia
+									</div>
+									<div class="patientDetails">
+										<div class="detailsDesktop">M32 | B1 W5 City Hospital</div>										
+										<div class="alarmDesktop">
+										Last alarm 10 min ago</div>
+									</div>
+								</div>
+								<div class="patientStats">
+									<div class="kvPair">
+										<div class="key">HR</div>
+										<div class="value">102</div>
+									</div>
+									<div class="kvPair">
+										<div class="key">RR</div>
+										<div class="value">48</div>
+									</div>
+									<div class="kvPair">
+										<div class="key">SPO<sub>2</sub></div>
+										<div class="value">99</div>
+									</div>
+									<div class="kvPair">
+										<div class="key">TEMP</div>
+										<div class="value">98/102</div>
+									</div>
+									<div class="kvPair">
+										<div class="key">NIBP</div>
+										<div class="value">112/88</div>
+									</div>
+								</div>
+								<div class="actions">
+									<div class="action">
+										<div class="actionName history">History</div>
+									</div>
+									<div class="action">
+										<div class="actionName vitals">Vitals</div>
+									</div>
+								</div>
+							</div>-->
+				</div>
+
+				<!--<div class="listTitle">Patients in Ward 1</div>
+						<div class="patientsList ward1">
+							<div style="clear: both"></div>
+						</div>
+
+						<div class="listTitle">Patients in Ward 2</div>
+						<div class="patientsList ward2">
+							<div style="clear: both"></div>
+						</div>-->
+			</div>
+			<div class="patientsSearched">
+				<div class="patientsList"></div>
+			</div>
+			<div class="filters filtersAlarms">
+				<div class="search">
+					<div class="icon"></div>
+					<input type="text" placeholder="Search for patients here" class="patientSearch">
+				</div>
+				<div class="otherOptions">
+					<div class="option optionFilter">
+						<div class="icon"></div>
+						<div class="optionLabel">Filter</div>
+						<div class="optionDetails">
+							<div class="optionValue active">All</div>
+							<div class="optionValue">High alarms</div>
+							<div class="optionValue">Medium & High alarms</div>
+						</div>
+					</div>
+					<div class="option optionGroup">
+						<div class="icon"></div>
+						<div class="optionLabel">Group</div>
+						<div class="optionDetails">
+							<div class="optionValue active default">No Grouping</div>
+							<div class="optionValue filtered">Group by hospital</div>
+							<div class="optionValue filtered">Group by ward</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="alarms"></div>
+			<div class="alarmsSearched">
+				<div class="listTitle">Group Title 1</div>
+				<div class="alarmsGroup"></div>
+				<div class="listTitle">Group Title 2</div>
+				<div class="alarmsGroup"></div>
+			</div>
+		</div>
+	</div>
+
+	<div class="patientDetailsContainer">
+		<div class="patientDetails">
+			<div class="buttonBack"></div>
+			<div class="patientInfo">
+				<div class="patientName">{{patientname || ' '}}</div>
+				<div class="patientDescription">{{gender || ' '}} {{age || ' '}} | {{bednumber || ' '}} {{ hospital || ' '}}</div>
+				<!--<div class="currentAlarms" *ngFor='let item of list_alrm | slice:0:6; let isLast= last'>{{item}} {{isLast ? '' : ' , '}}</div>-->
+				<div class="currentAlarms">{{this.liveVitals?.alarm_list}}</div>
+			</div>
+			<div class="actions" *ngIf="liveVitals">
+				<div class="action history" [ngClass]="show.tab1 ? 'active' : ''">
+					<div class="actionName history" style="cursor:pointer" (click)="detailsTab(liveVitals.details?.patient_id,patientname,gender,age,bednumber,hospital, 'history')">History</div>
+				</div>
+				<div class="action vitals" style="cursor:pointer" [ngClass]="show.tab2 ? 'active' : ''" (click)="detailsTab(liveVitals.details?.patient_id,patientname,gender,age,bednumber,hospital, 'vitals')">
+					<div class="actionName vitals">Vitals</div>
+				</div>
+				<div class="action settings" [ngClass]="show.tab3 ? 'active' : ''">
+					<div class="actionName settings" style="cursor:pointer" (click)="detailsTab(liveVitals.details?.patient_id,patientname,gender,age,bednumber,hospital, 'settings')">&nbsp;</div>
+				</div>
+			</div>
+		</div>
+		<div class="patientHistory" [ngStyle]="{'display': show.tab1 ? 'block' : 'none'}">
+			<div class="historyOptionsContainer">
+				<div class="historyOptions">
+					<div class="option trendGraphs" style="cursor:pointer;" [ngClass]="showHistory.tab1 ? 'active' : ''" (click)="historyTab('trend_graph')">Trend Graphs</div>
+					<div class="option  dataTable" style="cursor:pointer;" [ngClass]="showHistory.tab2 ? 'active' : ''" (click)="historyTab('data_table')">Data Table</div>
+					<div class="option alarmHistory" style="cursor:pointer;" [ngClass]="showHistory.tab3 ? 'active' : ''" (click)="historyTab('alarm_history')">Alarm History</div>
+					<div class="option notes" style="cursor:pointer;" [ngClass]="showHistory.tab4 ? 'active' : ''" (click)="historyTab('notes')">Notes</div>
+				</div>
+			</div>
+
+			<!--************************************************** TREND DATA *********************************************************-->
+			<div class="historyOptionDetails dataTable" [ngStyle]="{'display': showHistory.tab2 ? 'block' : 'none'}">
+				<div class="table">
+					<div class="row title">
+						<div class="dt">Timestamp</div>
+						<div class="dt">HR</div>
+						<div class="dt">RR</div>
+						<div class="dt">SPO<sub>2</sub>(%)</div>
+						<div class="dt">PR</div>
+						<div class="dt">TEMP (F)</div>
+						<div class="dt">NIBP(mmHg)</div>
+					</div>
+					<div class="row" *ngFor="let item of data_json; let i = index">
+						<div class="dt">{{item.TIMESTAMP}}</div>
+						<div class="dt">{{item.HR}}</div>
+						<div class="dt">{{item.RR}}</div>
+						<div class="dt">{{item.SPO2}}</div>
+						<div class="dt">{{item.PULSE}}</div>
+						<div class="dt">{{item.TEMP1}}/{{item.TEMP2}}</div>
+						<div class="dt">{{item.NIBP_HIGH || '--' }}/{{item.NIBP_LOW || '--'}}({{item.NIBP_MEAN || '--'}})</div>
+					</div>
+					<div *ngIf='noData==true' style="text-align:center; padding-top: 200px; margin: auto; width: 50%">
+						NO TREND DATA
+					</div>
+					<div *ngIf='showLoaderData==true' style="text-align:center; padding-top: 200px; margin: auto; width: 50%">
+						Retrieving Data...
+					</div>
+				</div>
+				<div class="config">
+					<div class="configOption">
+						<div class="configOptionTitle">Resolution</div>
+						<div class="configOptionValue">
+							<div [ngClass]="{'disabled':showLoaderData || inputResolution.Resolution == '5min'}" class="buttonMinus" (click)="leftResolution()">-</div>
+
+							<div class="value">
+								<input type="text" [(ngModel)]="inputResolution.Resolution" style="text-align:center; width: 100px; background-color: transparent"
+								 disabled="disabled">
+							</div>
+							<div [ngClass]="{'disabled':showLoaderData || inputResolution.Resolution == '6hr'}" class="buttonPlus" (click)="rightResolution()">+</div>
+						</div>
+					</div>
+					<div class="config" style="color:gray; text-align:left; margin-left: 20px" *ngIf='data_json?.length!=0'>Page {{dataPage}} of {{totalPagesData}}</div>
+					<i class="fa fa-caret-left fa-2x" [ngClass]="{'disabled':showLoaderData || dataPage == 1}" aria-hidden="true" style="cursor:pointer; color: #4fc3f7; margin-right: 20px" (click)="getPage(4)"
+					 data-toggle="tooltip" title="Previous"></i>
+					<i class="fa fa-caret-right fa-2x" [ngClass]="{'disabled':showLoaderData || dataPage == totalPagesData}" aria-hidden="true" style="cursor:pointer; color: #4fc3f7;" (click)="getPage(3)" data-toggle="tooltip"
+					 title="Next"></i>
+				</div>
+				<div class="loader" [ngStyle]="{'display': showLoaderData ? 'inline-block' : 'none'}">
+					<i class="fa fa-spinner fa-pulse fa-2x"></i>
+				</div>
+			</div>
+
+			<!--************************************************** ALARM HISTORY *********************************************************-->
+			<div class="historyOptionDetails alarmHistory" [ngStyle]="{'display': showHistory.tab3 ? 'block' : 'none'}">
+				<div class="table">
+					<div class="row title">
+						<div class="dt">Time</div>
+						<!--<div class="dt">Level</div>-->
+						<!--<div class="dt">Duration</div>-->
+						<div class="dt">Alarms</div>
+						<!--<div class="dt">Average Value</div>-->
+						<!--<div class="dt">Peak Value</div>-->
+					</div>
+					<div class="row" *ngFor='let key of datatab | keys; let i=index'>
+						<div class="dt">{{time1[i]}}</div>
+						<!--<div class="dt">Medium</div>-->
+						<!--<div class="dt">10 min</div>-->
+						<div class="dt">{{key.value.alarm_name}}</div>
+						<!--<div class="dt">82</div>-->
+						<!--<div class="dt">110</div>-->
+					</div>
+					<div *ngIf='noAlarm==true' style="text-align:center; padding-top: 200px; margin: auto; width: 50%">
+						NO ALARM DATA
+					</div>
+					<div *ngIf='showLoader==true' style="text-align:center; padding-top: 200px; margin: auto; width: 50%">
+						Retrieving Data...
+					</div>
+					<div class="loader" [ngStyle]="{'display': showLoader ? 'inline-block' : 'none'}">
+						<i class="fa fa-spinner fa-pulse fa-2x"></i>
+					</div>
+				</div>
+				<div class="config">
+					<i class="fa fa-caret-left fa-2x"  [ngClass]="{'disabled':showLoader || alarmPage == 1}" aria-hidden="true" style="cursor:pointer; margin-right: 20px; color: #4fc3f7;" (click)="getPage(2)"
+					 data-toggle="tooltip" title="Previous"></i>
+					<i class="fa fa-caret-right fa-2x" [ngClass]="{'disabled':showLoader || alarmPage == totalPagesAlarm}" aria-hidden="true" style="cursor:pointer; color: #4fc3f7;" (click)="getPage(1)" data-toggle="tooltip"
+					 title="Next"></i>
+					<!--<div class="configOption">
+						<div class="configOptionTitle">Show alarms</div>
+						<div class="configOptionValue">
+							<div class="radioOption">
+								<div class="radioOuter">
+									<div class="radioInner"></div>
+								</div>
+								<div class="radioLabel">Low Priority</div>
+							</div>
+							<div class="radioOption active">
+								<div class="radioOuter">
+									<div class="radioInner"></div>
+								</div>
+								<div class="radioLabel">Medium Priority</div>
+							</div>
+							<div class="radioOption">
+								<div class="radioOuter">
+									<div class="radioInner"></div>
+								</div>
+								<div class="radioLabel">High Priority</div>
+							</div>
+						</div>
+					</div>-->
+				</div>
+				<div class="config" style="color:gray; text-align:right; margin-bottom: 5px; margin-left: -55px" *ngIf='datatab?.length!=0'>Page {{alarmPage}} of {{totalPagesAlarm}}</div>
+			</div>
+
+			<!--************************************************** TREND GRAPHS *********************************************************-->
+			<div class="historyOptionDetails trendGraphs" [ngStyle]="{'display': showHistory.tab1 ? 'block' : 'none'}">
+				<div class="graphContainer" id="element">
+					<!--Graph Here-->
+					<!-- <chart [options]="options" (load)="saveChart($event.context)" [style.width]="graphWidth" [style.height]="graphHeight"> -->
+					<!-- <chart [options]="options" (load)="saveChart($event.context)" (window:resize)="onResize($event)" id="element1"> -->
+						<chart [options]="options" (load)="saveChart($event.context)">
+						<!--<series (hide)="onSeriesHide($event.context)">-->
+						<point (select)="onPointSelect($event.context)"></point>
+					</chart>
+				</div>
+				<div class="config">
+					<div class="config" style="padding-top: 10px; color:gray; text-align:center; margin-bottom: 50px" *ngIf="!totalPagesGraph==0">Page {{graphPage}} of {{totalPagesGraph}}</div>
+					<i class="fa fa-caret-left fa-2x" [ngClass]="{'disabled':showLoaderGraph || graphPage == 1}" aria-hidden="true" style="float: left; color:#4fc3f7; cursor:pointer; margin-left: 20px"
+					 (click)="getPage(6)" data-toggle="tooltip" title="Previous"></i>
+					<i class="fa fa-caret-right fa-2x" [ngClass]="{'disabled':showLoaderGraph || graphPage == totalPagesGraph}" aria-hidden="true" style="float: right; color:#4fc3f7; cursor:pointer; margin-right: -10px"
+					 (click)="getPage(5)" data-toggle="tooltip" title="Next"></i>
+					<div class="configOption">
+						<div class="configOptionTitle">Resolution</div>
+						<div class="configOptionValue">							
+							<div [ngClass]="{'disabled':showLoaderData || inputResolution.Resolution == '5min'}" class="buttonMinus" (click)="leftResolution()">-</div>
+
+							<div class="value">
+								<input type="text" [(ngModel)]="inputResolution.Resolution" style="text-align:center; width: 100px; background-color: transparent"
+								 disabled="disabled">
+							</div>
+							<div [ngClass]="{'disabled':showLoaderData || inputResolution.Resolution == '6hr'}" class="buttonPlus" (click)="rightResolution()">+</div>
+						</div>
+					</div>
+					<!--<div class="configOption">
+						<div class="configOptionTitle">Show alarms</div>
+						<div class="configOptionValue">
+							<div class="radioOption">
+								<div class="radioOuter">
+									<div class="radioInner"></div>
+								</div>
+								<div class="radioLabel">HR</div>
+							</div>
+							<div class="radioOption active">
+								<div class="radioOuter">
+									<div class="radioInner"></div>
+								</div>
+								<div class="radioLabel">RR</div>
+							</div>
+							<div class="radioOption">
+								<div class="radioOuter">
+									<div class="radioInner"></div>
+								</div>
+								<div class="radioLabel">SPO<sub>2</sub></div>
+							</div>
+							<div class="radioOption">
+								<div class="radioOuter">
+									<div class="radioInner"></div>
+								</div>
+								<div class="radioLabel">Temp</div>
+							</div>
+							<div class="radioOption">
+								<div class="radioOuter">
+									<div class="radioInner"></div>
+								</div>
+								<div class="radioLabel">NIBP</div>
+							</div>
+						</div>
+					</div>-->
+				</div>
+				<div class="loader" [ngStyle]="{'display': showLoaderGraph ? 'inline-block' : 'none'}">
+					<i class="fa fa-spinner fa-pulse fa-2x"></i>
+				</div>
+				<!--<div *ngIf="totalPagesGraph==0" style="text-align:center; padding-top: 200px;">
+					NO TRENDS
+				</div>-->
+			</div>
+
+			<!--************************************************** NOTES *********************************************************-->
+			<div class="historyOptionDetails notes" [ngStyle]="{'display': showHistory.tab4 ? 'block' : 'none'}">
+				<div class="Container">
+					<div class="container" style="background-color: transparent; padding-top: 20px">
+						<div class="row" *ngIf='notes'>
+							<div class="timeline-centered">
+								<article class="timeline-entry" *ngFor="let item of notes; let i = index">
+									<div class="timeline-entry-inner">
+										<div class="timeline-icon bg-info">
+											<i class="entypo-feather"></i>
+										</div>
+										<div class="timeline-label" style="padding-right: 5px; padding-bottom: 5px; padding-left: 5px; padding-top: 5px; margin-left: 65px; box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1)">
+											<img [src]="item.Thumbnail" class="img-thumbnail" style="height: 50px; width: 50px; float: left; cursor:pointer" (click)="getNotesImage(item.NoteId)"
+											/>
+											<p align="left" style="margin-left: 70px;">{{item.NotesDesc || 'No Description'}}</p>
+											<p class="detailsDesktop" align="right" style="font-size: 10px">{{item.CreatedOn || ''}}</p>
+										</div>
+									</div>
+								</article>
+								<div id="image" [ngStyle]="{'display': showImage ? 'block' : 'none'}"></div>
+								<article class="timeline-entry begin" [ngStyle]="{'display': showArticleEnd ? 'block' : 'none'}">
+									<div class="timeline-entry-inner">
+										<div class="timeline-icon" style="-webkit-transform: rotate(0deg); -moz-transform: rotate(-90deg);">
+											<i class="entypo-flight"></i> End
+										</div>
+									</div>
+								</article>
+							</div>
+						</div>
+						<div class="loader" [ngStyle]="{'display': imageLoader ? 'inline-block' : 'none'}">
+							<i class="fa fa-spinner fa-pulse fa-lg" style="margin-right: 30px; margin-top: 10px; vertical-align: top"></i>
+						</div>
+						<div *ngIf='notes?.length===0' style="text-align:center; padding-top: 80px; margin: auto; width: 50%; vertical-align: middle;">NO NOTES AVAILABLE</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--************************************************** GRAPHS *********************************************************-->
+		<div class="patientLiveData" [ngStyle]="{'display': show.tab2 ? 'block' : 'none'}">
+			<div class="liveDataContainer">
+				<div class="row withGraph">
+					<div class="dataBox">
+						<div class="graph">
+							<canvas id="container_ecg1" style="width: 100%; height: 100%;"></canvas>
+						</div>
+						<div class="readingContainer">
+							<div class="reading">
+								<div class="readingTitle">HR</div>
+								<div class="readingValue">{{liveVitals?.hr || '--'}}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row withGraph">
+					<div class="dataBox">
+						<div class="graph">
+							<canvas id="container_spo2" style="width: 100%; height: 100%;"></canvas>
+						</div>
+						<div class="readingContainer">
+							<div class="reading">
+								<div class="readingTitle">SPO<sub>2</sub></div>
+								<div class="readingValue">{{liveVitals?.spo2 || '--'}}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row withGraph">
+					<div class="dataBox">
+						<div class="graph">
+							<canvas id="container_rr" style="width: 100%; height: 100%;"></canvas>
+						</div>
+						<div class="readingContainer">
+							<div class="reading">
+								<div class="readingTitle">RR</div>
+								<div class="readingValue">{{liveVitals?.rr || '--'}}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row split">
+					<div class="dataBox">
+						<div class="readingContainer">
+							<div class="reading">
+								<div class="readingTitle">Temp</div>
+								<div class="readingValue">{{liveVitals?.temp1 || '--'}}/{{liveVitals?.temp2 || '--'}}</div>
+								<div class="readingMeta">
+									<!--10:54 AM-->
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="dataBox">
+						<div class="readingContainer">
+							<div class="reading">
+								<div class="readingTitle">NIBP</div>
+								<div class="readingValue">{{liveVitals?.nibpsys || '--'}}/{{liveVitals?.nibpdia || '--'}}</div>
+								<div class="readingMeta">
+									<!--{{liveVitals?.nibpsys_ts}}/{{liveVitals?.nibpdia_ts}}-->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--************************************************** SETTINGS *********************************************************-->
+		<div class="patientSettings" [ngStyle]="{'display': show.tab3 ? 'block' : 'none'}">
+			<div class="Container">
+				<div class="settingsCategories">
+					<div class="settingsCategory">
+						<div class="categoryTitle">
+							<div class="categoryName" style="cursor:pointer;" (click)="settingTab('ecg')">ECG</div>
+						</div>
+						<div class="categoryDetails" [ngStyle]="{'display': showPatientSettings.tab1 ? 'block' : 'none'}">
+							<div class="group">
+								<div class="groupTitle">ECG</div>
+								<div class="groupDetails" *ngIf='settings'>
+									<div class="block">
+										<div class="key">Lead System</div>
+										<div class="value" [ngSwitch]="settings[26].setting_value">
+											<select>
+													<option *ngSwitchCase="'0'">III Lead</option>
+													<option *ngSwitchCase="'1'">V Lead</option>
+											</select>
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">Filter Mode</div>
+										<div class="value" [ngSwitch]="settings[28].setting_value">
+											<select>
+													<option *ngSwitchCase="'0'">Diagnostic</option>
+													<option *ngSwitchCase="'1'">Monitor</option>
+													<option *ngSwitchCase="'2'">Surgery</option>
+												</select>
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">ECG Notch</div>
+										<div class="value" [ngSwitch]="settings[31].state">
+											<div class="toggleContainer">
+												<div class="on" *ngSwitchCase="'1'">On</div>
+												<div class="off" *ngSwitchCase="'0'">Off</div>
+											</div>
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">ECG Pace</div>
+										<div class="value" [ngSwitch]="settings[32].state">
+											<div class="toggleContainer">
+												<div class="on" *ngSwitchCase="'1'">On</div>
+												<div class="off" *ngSwitchCase="'0'">Off</div>
+											</div>
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">Calibrate</div>
+										<div class="value" [ngSwitch]="settings[30].state">
+											<div class="toggleContainer">
+												<div class="on" *ngSwitchCase="'1'">On</div>
+												<div class="off" *ngSwitchCase="'0'">Off</div>
+											</div>
+										</div>
+										<div class="cb"></div>
+									</div>
+								</div>
+							</div>
+							<div class="group">
+								<div class="groupTitle">HR Alarm</div>
+								<div class="groupDetails" *ngIf='settings'>
+									<div class="block">
+										<div class="key">Alarm</div>
+										<div class="value" [ngSwitch]="settings[0].state">
+											<div class="toggleContainer">
+												<div class="on" *ngSwitchCase="'1'">On</div>
+												<div class="off" *ngSwitchCase="'0'">Off</div>
+											</div>
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">Alarm Level</div>
+										<div class="value" [ngSwitch]="settings[0].priority">
+											<select>
+													<option *ngSwitchCase="'1'">High</option>
+													<option *ngSwitchCase="'2'">Medium</option>
+													<option *ngSwitchCase="'3'">Low</option>
+												</select>
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">Alarm High</div>
+										<div class="value">
+											<input type="text" class="textInput" value={{settings[0].high_value}} disabled="disabled">
+
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">Alarm Low</div>
+										<div class="value">
+											<input type="text" class="textInput" value={{settings[0].low_value}} disabled="disabled">
+										</div>
+										<div class="cb"></div>
+									</div>
+								</div>
+							</div>
+							<div class="group">
+								<div class="groupTitle">ST Alarm</div>
+								<div class="groupDetails" *ngIf='settings'>
+									<div class="block">
+										<div class="key">Alarm</div>
+										<div class="value" [ngSwitch]="settings[0].state">
+											<div class="toggleContainer">
+												<div class="on" *ngSwitchCase="'1'">On</div>
+												<div class="off" *ngSwitchCase="'0'">Off</div>
+											</div>
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">Alarm Level</div>
+										<div class="value" [ngSwitch]="settings[0].priority">
+											<select>
+													<option *ngSwitchCase="'1'">High</option>
+													<option *ngSwitchCase="'2'">Medium</option>
+													<option *ngSwitchCase="'3'">Low</option>
+												</select>
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">Alarm High</div>
+										<div class="value">
+											<input type="text" class="textInput" value={{settings[24].high_value}} disabled="disabled">
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">Alarm Low</div>
+										<div class="value">
+											<input type="text" class="textInput" value={{settings[24].high_value}} disabled="disabled">
+										</div>
+										<div class="cb"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="settingsCategory">
+						<div class="categoryTitle">
+							<div class="categoryName" style="cursor:pointer;" (click)="settingTab('arrhythmia')">Arrhythmia</div>
+							<!--<div class="buttonExpand" style="cursor:pointer;" (click)="settingTab('arrhythmia')">+</div>-->
+						</div>
+						<div class="categoryDetails" [ngStyle]="{'display': showPatientSettings.tab2 ? 'block' : 'none'}">
+							<div class="group">
+								<div class="groupTitle">Arrhythmia</div>
+								<div class="groupDetails" *ngIf="settings">
+									<div class="block">
+										<div class="key">Alarm</div>
+										<div class="value" [ngSwitch]="settings[7].state">
+											<div class="toggleContainer">
+												<div class="on" *ngSwitchCase="'1'">On</div>
+												<div class="off" *ngSwitchCase="'0'">Off</div>
+											</div>
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">Asystole</div>
+										<div class="value" [ngSwitch]="settings[9].priority">
+											<select>
+													<option *ngSwitchCase="'1'">High</option>
+													<option *ngSwitchCase="'2'">Medium</option>
+													<option *ngSwitchCase="'3'">Low</option>
+												</select>
+											<div class="toggleContainer" [ngSwitch]="settings[9].state" style="float: right; margin-left: 10px">
+												<div class="on" *ngSwitchCase="'1'">On</div>
+												<div class="off" *ngSwitchCase="'0'">Off</div>
+											</div>
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">Ven Tachy/FIB</div>
+										<div class="value" [ngSwitch]="settings[10].priority">
+											<select>
+													<option *ngSwitchCase="'1'">High</option>
+													<option *ngSwitchCase="'2'">Medium</option>
+													<option *ngSwitchCase="'3'">Low</option>
+												</select>
+											<div class="toggleContainer" [ngSwitch]="settings[10].state" style="float: right; margin-left: 10px">
+												<div class="on" *ngSwitchCase="'1'">On</div>
+												<div class="off" *ngSwitchCase="'0'">Off</div>
+											</div>
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">R ON T</div>
+										<div class="value" [ngSwitch]="settings[11].priority">
+											<select>
+													<option *ngSwitchCase="'1'">High</option>
+													<option *ngSwitchCase="'2'">Medium</option>
+													<option *ngSwitchCase="'3'">Low</option>
+												</select>
+											<div class="toggleContainer" [ngSwitch]="settings[11].state" style="float: right; margin-left: 10px">
+												<div class="on" *ngSwitchCase="'1'">On</div>
+												<div class="off" *ngSwitchCase="'0'">Off</div>
+											</div>
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">RUN</div>
+										<div class="value" [ngSwitch]="settings[12].priority">
+											<select>
+													<option *ngSwitchCase="'1'">High</option>
+													<option *ngSwitchCase="'2'">Medium</option>
+													<option *ngSwitchCase="'3'">Low</option>
+												</select>
+											<div class="toggleContainer" [ngSwitch]="settings[12].state" style="float: right; margin-left: 10px">
+												<div class="on" *ngSwitchCase="'1'">On</div>
+												<div class="off" *ngSwitchCase="'0'">Off</div>
+											</div>
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">Couplet</div>
+										<div class="value" [ngSwitch]="settings[13].priority">
+											<select>
+													<option *ngSwitchCase="'1'">High</option>
+													<option *ngSwitchCase="'2'">Medium</option>
+													<option *ngSwitchCase="'3'">Low</option>
+												</select>
+											<div class="toggleContainer" [ngSwitch]="settings[13].state" style="float: right; margin-left: 10px">
+												<div class="on" *ngSwitchCase="'1'">On</div>
+												<div class="off" *ngSwitchCase="'0'">Off</div>
+											</div>
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">PVC</div>
+										<div class="value" [ngSwitch]="settings[14].priority">
+											<select>
+													<option *ngSwitchCase="'1'">High</option>
+													<option *ngSwitchCase="'2'">Medium</option>
+													<option *ngSwitchCase="'3'">Low</option>
+												</select>
+											<div class="toggleContainer" [ngSwitch]="settings[14].state" style="float: right; margin-left: 10px">
+												<div class="on" *ngSwitchCase="'1'">On</div>
+												<div class="off" *ngSwitchCase="'0'">Off</div>
+											</div>
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">Bigeminy</div>
+										<div class="value" [ngSwitch]="settings[15].priority">
+											<select>
+													<option *ngSwitchCase="'1'">High</option>
+													<option *ngSwitchCase="'2'">Medium</option>
+													<option *ngSwitchCase="'3'">Low</option>
+												</select>
+											<div class="toggleContainer" [ngSwitch]="settings[15].state" style="float: right; margin-left: 10px">
+												<div class="on" *ngSwitchCase="'1'">On</div>
+												<div class="off" *ngSwitchCase="'0'">Off</div>
+											</div>
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">Trigeminy</div>
+										<div class="value" [ngSwitch]="settings[16].priority">
+											<select>
+													<option *ngSwitchCase="'1'">High</option>
+													<option *ngSwitchCase="'2'">Medium</option>
+													<option *ngSwitchCase="'3'">Low</option>
+												</select>
+											<div class="toggleContainer" [ngSwitch]="settings[16].state" style="float: right; margin-left: 10px">
+												<div class="on" *ngSwitchCase="'1'">On</div>
+												<div class="off" *ngSwitchCase="'0'">Off</div>
+											</div>
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">Tachy</div>
+										<div class="value" [ngSwitch]="settings[17].priority">
+											<select>
+													<option *ngSwitchCase="'1'">High</option>
+													<option *ngSwitchCase="'2'">Medium</option>
+													<option *ngSwitchCase="'3'">Low</option>
+												</select>
+											<div class="toggleContainer" [ngSwitch]="settings[17].state" style="float: right; margin-left: 10px">
+												<div class="on" *ngSwitchCase="'1'">On</div>
+												<div class="off" *ngSwitchCase="'0'">Off</div>
+											</div>
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">Brady</div>
+										<div class="value" [ngSwitch]="settings[18].priority">
+											<select>
+													<option *ngSwitchCase="'1'">High</option>
+													<option *ngSwitchCase="'2'">Medium</option>
+													<option *ngSwitchCase="'3'">Low</option>
+												</select>
+											<div class="toggleContainer" [ngSwitch]="settings[18].state" style="float: right; margin-left: 10px">
+												<div class="on" *ngSwitchCase="'1'">On</div>
+												<div class="off" *ngSwitchCase="'0'">Off</div>
+											</div>
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">PNC</div>
+										<div class="value" [ngSwitch]="settings[19].priority">
+											<select>
+													<option *ngSwitchCase="'1'">High</option>
+													<option *ngSwitchCase="'2'">Medium</option>
+													<option *ngSwitchCase="'3'">Low</option>
+												</select>
+											<div class="toggleContainer" [ngSwitch]="settings[19].state" style="float: right; margin-left: 10px">
+												<div class="on" *ngSwitchCase="'1'">On</div>
+												<div class="off" *ngSwitchCase="'0'">Off</div>
+											</div>
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">PNP</div>
+										<div class="value" [ngSwitch]="settings[20].priority">
+											<select>
+													<option *ngSwitchCase="'1'">High</option>
+													<option *ngSwitchCase="'2'">Medium</option>
+													<option *ngSwitchCase="'3'">Low</option>
+												</select>
+											<div class="toggleContainer" [ngSwitch]="settings[20].state" style="float: right; margin-left: 10px">
+												<div class="on" *ngSwitchCase="'1'">On</div>
+												<div class="off" *ngSwitchCase="'0'">Off</div>
+											</div>
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">Missed Beat</div>
+										<div class="value" [ngSwitch]="settings[21].priority">
+											<select>
+													<option *ngSwitchCase="'1'">High</option>
+													<option *ngSwitchCase="'2'">Medium</option>
+													<option *ngSwitchCase="'3'">Low</option>
+												</select>
+											<div class="toggleContainer" [ngSwitch]="settings[21].state" style="float: right; margin-left: 10px">
+												<div class="on" *ngSwitchCase="'1'">On</div>
+												<div class="off" *ngSwitchCase="'0'">Off</div>
+											</div>
+										</div>
+										<div class="cb"></div>
+									</div>
+									<!-- <div class="block">
+										<div class="key">Noise</div>
+										<div class="value" [ngSwitch]="settings[22].priority">
+											<select>
+													<option *ngSwitchCase="'1'">High</option>
+													<option *ngSwitchCase="'2'">Medium</option>
+													<option *ngSwitchCase="'3'">Low</option>
+												</select>
+											<div class="toggleContainer" style="margin-top: 5px" [ngSwitch]="settings[22].state">
+												<div class="on" *ngSwitchCase="'1'">On</div>
+												<div class="off" *ngSwitchCase="'0'">Off</div>
+											</div>
+										</div>
+										<div class="cb"></div>
+									</div> -->
+									<!-- <div class="block">
+										<div class="key">Weak Signal</div>
+										<div class="value" [ngSwitch]="settings[23].priority">
+											<select>
+													<option *ngSwitchCase="'1'">High</option>
+													<option *ngSwitchCase="'2'">Medium</option>
+													<option *ngSwitchCase="'3'">Low</option>
+												</select>
+											<div class="toggleContainer" style="margin-top: 5px" [ngSwitch]="settings[23].state">
+												<div class="on" *ngSwitchCase="'1'">On</div>
+												<div class="off" *ngSwitchCase="'0'">Off</div>
+											</div>
+										</div>
+										<div class="cb"></div>
+									</div> -->
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="settingsCategory">
+						<div class="categoryTitle">
+							<div class="categoryName" style="cursor:pointer;" (click)="settingTab('spo2')">SPO2</div>
+							<!--<div class="buttonExpand" style="cursor:pointer;" (click)="settingTab('spo2')">+</div>-->
+						</div>
+						<div class="categoryDetails" [ngStyle]="{'display': showPatientSettings.tab3 ? 'block' : 'none'}">
+							<div class="group">
+								<div class="groupTitle">SPO2</div>
+								<div class="groupDetails" *ngIf="settings">
+									<div class="block">
+										<div class="key">SPO2 Sensitivity</div>
+										<div class="value" [ngSwitch]="settings[38].setting_value">
+											<select>
+													<option *ngSwitchCase="'1'">High</option>
+													<option *ngSwitchCase="'2'">Medium</option>
+													<option *ngSwitchCase="'3'">Low</option>
+												</select>
+										</div>
+										<div class="cb"></div>
+									</div>
+
+								</div>
+							</div>
+							<div class="group">
+								<div class="groupTitle">SPO2 Alarm</div>
+								<div class="groupDetails" *ngIf='settings'>
+									<div class="block">
+										<div class="key">Alarm</div>
+										<div class="value" [ngSwitch]="settings[1].state">
+											<div class="toggleContainer">
+												<div class="on" *ngSwitchCase="'1'">On</div>
+												<div class="off" *ngSwitchCase="'0'">Off</div>
+											</div>
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">Alarm Level</div>
+										<div class="value" [ngSwitch]="settings[1].priority">
+											<select>
+													<option *ngSwitchCase="'1'">High</option>
+													<option *ngSwitchCase="'2'">Medium</option>
+													<option *ngSwitchCase="'3'">Low</option>
+												</select>
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">Alarm High</div>
+										<div class="value">
+											<input type="text" class="textInput" value={{settings[1].high_value}} disabled="disabled">
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">Alarm Low</div>
+										<div class="value">
+											<input type="text" class="textInput" value={{settings[1].low_value}} disabled="disabled">
+										</div>
+										<div class="cb"></div>
+									</div>
+								</div>
+							</div>
+							<div class="group">
+								<div class="groupTitle">PR Alarm</div>
+								<div class="groupDetails" *ngIf='settings'>
+									<div class="block">
+										<div class="key">Alarm</div>
+										<div class="value" [ngSwitch]="settings[8].state">
+											<div class="toggleContainer">
+												<div class="on" *ngSwitchCase="'1'">On</div>
+												<div class="off" *ngSwitchCase="'0'">Off</div>
+											</div>
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">Alarm Level</div>
+										<div class="value" [ngSwitch]="settings[8].priority">
+											<select>
+													<option *ngSwitchCase="'1'">High</option>
+													<option *ngSwitchCase="'2'">Medium</option>
+													<option *ngSwitchCase="'3'">Low</option>
+												</select>
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">Alarm High</div>
+										<div class="value">
+											<input type="text" class="textInput" value={{settings[8].high_value}} disabled="disabled">
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">Alarm Low</div>
+										<div class="value">
+											<input type="text" class="textInput" value={{settings[8].low_value}} disabled="disabled">
+										</div>
+										<div class="cb"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="settingsCategory">
+						<div class="categoryTitle">
+							<div class="categoryName" style="cursor:pointer;" (click)="settingTab('resp_rate')">Respiration Rate</div>
+							<!--<div class="buttonExpand" style="cursor:pointer;" (click)="settingTab('resp_rate')">+</div>-->
+						</div>
+						<div class="categoryDetails" [ngStyle]="{'display': showPatientSettings.tab4 ? 'block' : 'none'}">
+							<div class="group">
+								<div class="groupTitle">Respiration Rate</div>
+								<div class="groupDetails" *ngIf='settings'>
+									<div class="block">
+										<div class="key">Respiration Lead</div>
+										<div class="value" [ngSwitch]="settings[35].setting_value">
+											<select>
+													<option *ngSwitchCase="'0'">Lead I</option>
+													<option *ngSwitchCase="'1'">Lead II</option>
+											</select>
+										</div>
+										<div class="cb"></div>
+									</div>
+								</div>
+							</div>
+							<div class="group">
+								<div class="groupTitle">Alarms</div>
+								<div class="groupDetails" *ngIf='settings'>
+									<div class="block">
+										<div class="key">Alarm</div>
+										<div class="value" [ngSwitch]="settings[2].state">
+											<div class="toggleContainer">
+												<div class="on" *ngSwitchCase="'1'">On</div>
+												<div class="off" *ngSwitchCase="'0'">Off</div>
+											</div>
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">Alarm Level</div>
+										<div class="value" [ngSwitch]="settings[2].priority">
+											<select>
+													<option *ngSwitchCase="'1'">High</option>
+													<option *ngSwitchCase="'2'">Medium</option>
+													<option *ngSwitchCase="'3'">Low</option>
+												</select>
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">Alarm High</div>
+										<div class="value">
+											<input type="text" class="textInput" value={{settings[2].high_value}} disabled="disabled">
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">Alarm Low</div>
+										<div class="value">
+											<input type="text" class="textInput" value={{settings[2].low_value}} disabled="disabled">
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">Apnea Alarm Delay</div>
+										<div class="value" [ngSwitch]="settings[36].setting_value">
+											<select>
+													<option *ngSwitchCase="'0'">No Alarm</option>
+													<option *ngSwitchCase="'1'">10sec</option>
+													<option *ngSwitchCase="'2'">15sec</option>
+													<option *ngSwitchCase="'3'">20sec</option>
+													<option *ngSwitchCase="'4'">25sec</option>
+													<option *ngSwitchCase="'5'">30sec</option>
+													<option *ngSwitchCase="'6'">35sec</option>
+													<option *ngSwitchCase="'7'">40sec</option>
+												</select>
+										</div>
+										<div class="cb"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="settingsCategory">
+						<div class="categoryTitle">
+							<div class="categoryName" style="cursor:pointer;" (click)="settingTab('nibp')">NIBP</div>
+							<!--<div class="buttonExpand" style="cursor:pointer;" (click)="settingTab('nibp')">+</div>-->
+						</div>
+						<div class="categoryDetails" [ngStyle]="{'display': showPatientSettings.tab5 ? 'block' : 'none'}">
+							<div class="group">
+								<div class="groupTitle">NIBP</div>
+								<div class="groupDetails" *ngIf="settings">
+									<div class="block">
+										<div class="key">Interval</div>
+										<div class="value" [ngSwitch]="settings[39].setting_value">
+											<select>
+													<option *ngSwitchCase="'0'">Manual</option>
+													<option *ngSwitchCase="'1'">1min</option>
+													<option *ngSwitchCase="'2'">2min</option>
+													<option *ngSwitchCase="'3'">3min</option>
+													<option *ngSwitchCase="'4'">4min</option>
+													<option *ngSwitchCase="'5'">5min</option>
+													<option *ngSwitchCase="'6'">10min</option>
+													<option *ngSwitchCase="'7'">15min</option>
+													<option *ngSwitchCase="'8'">30min</option>
+													<option *ngSwitchCase="'9'">60min</option>
+													<option *ngSwitchCase="'10'">90min</option>
+													<option *ngSwitchCase="'11'">120min</option>
+													<option *ngSwitchCase="'12'">180min</option>
+													<option *ngSwitchCase="'13'">240min</option>
+													<option *ngSwitchCase="'14'">480min</option>
+												</select>
+										</div>
+										<div class="cb"></div>
+									</div>
+								</div>
+							</div>
+							<div class="group">
+								<div class="groupTitle">Alarms</div>
+								<div class="groupDetails" *ngIf='settings'>
+									<div class="block">
+										<div class="key">Alarm</div>
+										<div class="value" [ngSwitch]="settings[5].state">
+											<div class="toggleContainer">
+												<div class="on" *ngSwitchCase="'1'">On</div>
+												<div class="off" *ngSwitchCase="'0'">Off</div>
+											</div>
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">Alarm Level</div>
+										<div class="value" [ngSwitch]="settings[5].priority">
+											<select>
+													<option *ngSwitchCase="'1'">High</option>
+													<option *ngSwitchCase="'2'">Medium</option>
+													<option *ngSwitchCase="'3'">Low</option>
+												</select>
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">Sys Alarm High</div>
+										<div class="value">
+											<input type="text" class="textInput" value={{settings[5].high_value}} disabled="disabled">
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">Sys Alarm Low</div>
+										<div class="value">
+											<input type="text" class="textInput" value={{settings[5].low_value}} disabled="disabled">
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">Dia Alarm High</div>
+										<div class="value">
+											<input type="text" class="textInput" value={{settings[6].high_value}} disabled="disabled">
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">Dia Alarm Low</div>
+										<div class="value">
+											<input type="text" class="textInput" value={{settings[6].low_value}} disabled="disabled">
+										</div>
+										<div class="cb"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="settingsCategory">
+						<div class="categoryTitle">
+							<div class="categoryName" style="cursor:pointer;" (click)="settingTab('temp')">Temperature</div>
+							<!--<div class="buttonExpand" style="cursor:pointer;" (click)="settingTab('temp')">+</div>-->
+						</div>
+						<div class="categoryDetails" [ngStyle]="{'display': showPatientSettings.tab6 ? 'block' : 'none'}">
+							<div class="group">
+								<div class="groupTitle">Temperature</div>
+								<div class="groupDetails" *ngIf="settings">
+									<div class="block">
+										<div class="key">Sensor Type</div>
+										<div class="value" [ngSwitch]="settings[37].setting_value">
+											<select>
+													<option *ngSwitchCase="'0'">2.5k</option>
+													<option *ngSwitchCase="'1'">10k</option>
+												</select>
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">Temperature Scale</div>
+										<div class="value" [ngSwitch]="settings[40].setting_value">
+											<select>
+												<option *ngSwitchCase="'0'">C</option>
+												<option *ngSwitchCase="'1'">F</option>
+											</select>
+										</div>
+										<div class="cb"></div>
+									</div>
+								</div>
+							</div>
+							<div class="group">
+								<div class="groupTitle">Alarms</div>
+								<div class="groupDetails" *ngIf='settings'>
+									<div class="block">
+										<div class="key">Alarm</div>
+										<div class="value" [ngSwitch]="settings[3].state">
+											<div class="toggleContainer">
+												<div class="on" *ngSwitchCase="'1'">On</div>
+												<div class="off" *ngSwitchCase="'0'">OFF</div>
+											</div>
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">Alarm Level</div>
+										<div class="value" [ngSwitch]="settings[3].priority">
+											<select>
+													<option *ngSwitchCase="'1'">High</option>
+													<option *ngSwitchCase="'2'">Medium</option>
+													<option *ngSwitchCase="'3'">Low</option>
+												</select>
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">T1 Alarm High</div>
+										<div class="value">
+											<input type="text" class="textInput" value={{settings[3].high_value}} disabled="disabled">
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">T1 Alarm Low</div>
+										<div class="value">
+											<input type="text" class="textInput" value={{settings[3].low_value}} disabled="disabled">
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">T2 Alarm High</div>
+										<div class="value">
+											<input type="text" class="textInput" value={{settings[4].high_value}} disabled="disabled">
+										</div>
+										<div class="cb"></div>
+									</div>
+									<div class="block">
+										<div class="key">T2 Alarm Low</div>
+										<div class="value">
+											<input type="text" class="textInput" value={{settings[4].low_value}} disabled="disabled">
+										</div>
+										<div class="cb"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/jquery-tmpl" id="patientTemplate">
+		<div class="patientContainer ${ alarm.active ? 'alarm' : '' }">
+			<div class="patientInfo">
+				<div class="patientName">
+					${name}
+				</div>
+				<div class="patientDetails">
+					<div class="detailsDesktop">${sex}${age} | B${bed} W5 City Hospital</div>
+					{{if alarm.active}}
+					<div class="alarmDesktop active">
+						<div class="condition">
+							${alarm.conditions[0]} {{if alarm.conditions.length > 1}}
+							<div class="moreAlarms">+${alarm.conditions.length - 1}</div>
+							{{/if}}
+						</div>
+
+					</div>
+					{{else}}
+					<div class="alarmDesktop">
+						${alarm.message}</div>
+					{{/if}}
+				</div>
+			</div>
+			<div class="patientStats">
+				<div class="kvPair ${ alarm.active && alarm.parameter == 'hr' ? 'alarm' : '' }">
+					<div class="key">HR</div>
+					<div class="value">${hr}</div>
+				</div>
+				<div class="kvPair ${ alarm.active && alarm.parameter == 'rr' ? 'alarm' : '' }">
+					<div class="key">RR</div>
+					<div class="value">${rr}</div>
+				</div>
+				<div class="kvPair ${ alarm.active && alarm.parameter == 'spo' ? 'alarm' : '' }">
+					<div class="key">SPO<sub>2</sub></div>
+					<div class="value">${spo}</div>
+				</div>
+				<div class="kvPair ${ alarm.active && alarm.parameter == 'temp' ? 'alarm' : '' }">
+					<div class="key">TEMP</div>
+					<div class="value">${temp}</div>
+				</div>
+				<div class="kvPair ${ alarm.active && alarm.parameter == 'nibp' ? 'alarm' : '' }">
+					<div class="key">NIBP</div>
+					<div class="value">${nibp}</div>
+				</div>
+			</div>
+			<div class="actions">
+				<div class="action">
+					<div class="actionName history">History</div>
+				</div>
+				<div class="action">
+					<div class="actionName vitals">Vitals</div>
+				</div>
+			</div>
+		</div>
+	</script>
+
+	<script type="text/jquery-tmpl" id="alarmTemplate">
+		<div class="patientContainer">
+			<div class="patientInfo">
+				<div class="patientName">
+					${name}
+				</div>
+				<div class="patientDetails">
+					<div class="detailsDesktop">${sex}${age} | B${bed} W5 City Hospital</div>
+					<div class="alarmDesktop">${hr} â€¢ ${rr} â€¢ ${spo} â€¢ ${temp} â€¢ ${nibp}</div>
+				</div>
+			</div>
+			<div class="alarmHistory">
+				<div class="alarmItem title">
+					<div class="td">Time</div>
+					<div class="td">Level</div>
+					<div class="td">Parameter</div>
+					<div class="td">Duration</div>
+					<div class="td">Average</div>
+					<div class="td">Peak</div>
+				</div>
+				{{each alarms}} {{if time == 'Ongoing'}}
+				<div class="alarmItem ongoing">
+					<div class="td">${time}</div>
+					<div class="td">Medium</div>
+					<div class="td">${parameter}</div>
+					<div class="td">${duration}</div>
+					<div class="td">${average}</div>
+					<div class="td">${peak}</div>
+				</div>
+				{{else}}
+				<div class="alarmItem">
+					<div class="td">${time}</div>
+					<div class="td">Medium</div>
+					<div class="td">${parameter}</div>
+					<div class="td">${duration}</div>
+					<div class="td">${average}</div>
+					<div class="td">${peak}</div>
+				</div>
+				{{/if}} {{/each}}
+			</div>
+		</div>
+	</script>
+
+	<!--</body>-->
+	<!--</html>-->

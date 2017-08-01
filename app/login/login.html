@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>FYVE</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="/app/styles/main.css">
+    <link rel="manifest" href="/app/manifest.json">
+    <script type="text/javascript" src="/app/scripts/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="/app/scripts/jquery.tmpl.min.js"></script>
+    <script type="text/javascript" src="/app/scripts/main.js"></script>
+
+</head>
+
+<body>
+    <div id="mainContainer">
+
+        <div class="loginMainContainer">
+            <div class="loginContainer">
+                <div class="logo"></div>
+                <div class="description">Please login to continue</div>
+                <div class="credentials">
+                    <form>
+                    <input type="text" name="username" [(ngModel)]="localUser.username" class="username" placeholder="Username">
+                    <input type="password" name="password" [(ngModel)]="localUser.password" class="password" placeholder="Password">
+                    <input type="submit" value="Login" class="buttonLogin login-submit" (click)="login()" /></form>
+                    <!-- <div class="buttonLogin" (click)="login()">Login</div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<style type="text/css">-->
+</body>
+
+</html>

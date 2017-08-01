@@ -1,0 +1,1736 @@
+@font-face{
+	font-family: 'Montserrat';
+	font-weight: 400;
+  	src: url('./app/fonts/Montserrat-Regular.ttf') format('truetype')
+}
+
+@font-face{
+	font-family: 'Montserrat';
+	font-weight: 600;
+  	src: url('./app/fonts/Montserrat-Bold.ttf') format('truetype')
+}
+
+// variables
+
+$colorPrimary : #4fc3f7;
+$colorError : #EF585A;
+// common styles
+
+*{
+	box-sizing: border-box;
+	font-family: 'Montserrat';
+	font-weight: 400;
+}
+
+body{
+	padding: 0;
+	margin: 0;
+}
+
+#mainContainer{
+	position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    // min-width: 1200px; //for testing
+
+    .loginMainContainer{
+    	position: absolute;
+	    top: 0;
+	    left: 0;
+	    height: 100%;
+	    width: 100%;
+	    background: white;
+	    z-index: 30;
+
+	    .loginContainer{
+	    	position: absolute;
+		    top: 50%;
+		    left: 50%;
+		    transform: translateX(-50%) translateY(-50%);
+		    width: 300px;
+		    text-align: center;
+	    }
+
+	    .logo{
+    	    width: 100%;
+		    height: 40px;
+		    background-image: url(../images/logo.png);
+		    background-size: contain;
+		    background-position: center;
+		    background-repeat: no-repeat
+	    }
+
+	    .description{
+	    	margin-top: 30px;
+		    margin-bottom: 30px;
+		    color: rgba(0,0,0,0.4);
+		    font-size: 13px;
+	    }
+
+	    .credentials{
+
+	    	input{
+    		    width: 100%;	
+			    line-height: 60px;
+			    border: none;
+			    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+			    font-size: 16px;
+			    padding-left: 40px;
+			    background-size: 20px;
+			    background-repeat: no-repeat;
+			    background-position: 5px center;
+			    color: rgba(0,0,0,0.5);
+
+			    &:focus{
+			    	border: none;
+			    	outline: none;
+			    }
+	    	}
+
+	    	.username{
+				background-image: url("../images/iconUser.svg");
+	    	}
+
+	    	.password{
+				background-image: url("../images/iconPassword.svg");
+				border-bottom: none;
+	    	}
+	    }
+
+	    .buttonLogin{
+    	    background: $colorPrimary;
+		    color: white;
+		    line-height: 50px;
+		    font-size: 14px;
+		    margin-top: 20px;
+		    border-radius: 3px;
+		    cursor: pointer;
+	    }
+    }
+
+    .patientsMainContainer{
+		position: absolute;
+		left: 0;
+		top: 0;
+		height: 100%;
+		width: 50%;
+		background: #f1f1f1;
+		padding-top: 50px;
+
+		.header{
+		    position: absolute;
+		    top: 0;
+		    left: 0;
+		    height: 50px;
+		    background: white;
+		    width: 100%;
+		    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+		    z-index: 10;
+
+		    .logo{
+	    	    float: left;
+			    line-height: 50px;
+			    margin-left: 20px;
+			    background-image: url(../images/logo.png);
+			    background-size: contain;
+			    background-repeat: no-repeat;
+			    background-position: center;
+			    color: transparent;
+			    width: 100px;
+		    }
+
+		    .refreshBlock{
+    	        line-height: 50px;
+			    margin-left: 15px;
+			    float: left;
+			    font-size: 10px;
+			    height: 50px;
+			    width: 20px;
+			    background-image: url(../images/iconRefresh.svg);
+			    background-size: 14px;
+			    background-repeat: no-repeat;
+			    background-position: center;
+
+			    .status{
+			    	color: rgba(0,0,0,0.4);
+			    }
+
+			    .button{
+		    	    color: #4fc3f7;
+    				margin-left: 10px;
+			    }
+		    }	
+    }
+
+	.button {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #f4511e;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+		    .tabs{
+	    	    float: right;
+			    line-height: 50px;
+			    margin-right: 40px;
+
+			    .tab{
+			    	float: left;
+				    margin-left: 40px;
+				    font-size: 12px;
+				    color: rgba(0,0,0,0.5);
+				    overflow: hidden;
+
+				    .icon{
+			    	    float: left;
+					    height: 16px;
+					    width: 16px;
+					    margin-top: 17px;
+					    margin-right: 10px;
+					    background-size: contain;
+					    background-repeat: no-repeat;
+					    background-position: center;
+					    opacity: 0.7;
+				    }
+
+				    .tabLabel{
+				    	float: left;
+				    }
+
+				    &.active{
+						color: $colorPrimary;
+
+						.icon{
+							opacity: 1;
+						}
+				    }
+
+				    &.tabAlarms{
+						.icon{
+							background-image: url("../images/iconAlarmBlack.svg")
+						}
+
+						&.active{
+							.icon{
+								background-image: url("../images/iconAlarmActive.svg")
+							}
+						}
+				    }
+
+				    &.tabPatients{
+						.icon{
+							background-image: url("../images/iconListBlack.svg")
+						}
+
+						&.active{
+							.icon{
+								background-image: url("../images/iconListActive.svg")
+							}
+						}
+				    }
+			    }
+		    }
+
+		    .notifications{
+		    	float: right;
+			    height: 50px;
+			    width: 50px;
+			    position: relative;
+
+			    .iconNotification{
+		    	    position: absolute;
+				    height: 50px;
+				    width: 50px;
+				    background-image: url(../images/iconNotification.svg);
+				    background-size: 15px;
+				    background-repeat: no-repeat;
+				    background-position: center;
+				    top: 0;
+				    left: 0;
+				    cursor: pointer;
+			    }
+
+			    .counter{
+		    	    position: absolute;
+				    top: 10px;
+				    right: 10px;
+				    background: $colorPrimary;
+				    color: white;
+				    border-radius: 15px;
+				    font-size: 9px;
+				    width: 15px;
+				    height: 15px;
+				    text-align: center;
+				    line-height: 15px;
+			    }
+
+			    .notificationsList{
+		    	    width: 300px;
+				    background: white;
+				    position: absolute;
+				    top: 50px;
+				    right: 0px;
+				    box-shadow: 0px 3px 3px 0px rgba(0,0,0,0.1);
+				    /* position: relative; */
+				    height: 300px;
+				    padding-bottom: 40px;
+				    display: none;
+			    }
+
+			    .notificationsContainer{
+			    	height: 100%;
+				    width: 100%;
+				    overflow: auto;
+				    position: relative;
+			    }
+
+			    .notificationSingle{
+		    	    border-bottom: 1px solid rgba(0,0,0,0.1);
+				    padding: 10px 15px;
+				    padding-left: 50px;
+				    position: relative;
+
+				    .icon{
+			    	    position: absolute;
+					    height: 25px;
+					    width: 25px;
+					    background-size: contain;
+					    background-position: center;
+					    background-repeat: no-repeat;
+					    left: 15px;
+					    top: 13px;
+
+					    &.patient{
+					    	background-image: url(../images/iconNotificationPatient.svg);
+					    }
+
+					    &.alarm{
+					    	background-image: url(../images/iconNotificationAlarm.svg);
+					    }
+				    }
+
+				    .text{
+						font-size: 10px;
+						color: rgba(0,0,0,0.5);
+				    }
+
+				    .time{
+						font-size: 10px;
+						color: rgba(0,0,0,0.3);
+						margin-top: 5px;
+				    }
+			    }
+
+			    .noNotifications{
+			    	position: absolute;
+			    	top: 50%;
+			    	left: 50%;
+			    	transform: translateX(-50%) translateY(-50%);
+			    	font-size: 10px;
+			    	color: rgba(0,0,0,0.3);
+			    	text-align: center;
+			    	width: 100%;
+			    	display: none;
+			    }
+
+			    .buttonClear{
+			    	position: absolute;
+				    bottom: 0px;
+				    left: 0;
+				    line-height: 40px;
+				    border-top: 1px solid rgba(0,0,0,0.1);
+				    text-align: center;
+				    width: 100%;
+				    font-size: 10px;
+				    color: rgba(0,0,0,0.5);
+				    cursor: pointer;
+
+				    &:hover{
+				    	background: #fafafa;
+				    }
+
+				    &.disable{
+				    	opacity: 0.5;
+				    	cursor: default;
+
+				    	&:hover{
+				    		background: none;
+				    	}
+				    }
+			    }
+		    }
+		}
+
+		.mobileHeader{
+			display: none;
+		}
+		
+
+		.patientsContainer{
+			position: relative;
+			width: 100%;
+			height: 100%;
+			padding-top: 30px;
+
+			.filters{
+				position: absolute;
+				top: 0;
+				left: 0;
+				height: 30px;
+				width: 100%;
+				background: #fafafa;
+				border-top: 1px solid  rgba(0,0,0,0.05);
+				border-bottom: 1px solid  rgba(0,0,0,0.05);
+				padding-right: 160px;
+
+				.search{
+				    width: 100%;
+				    height: 100%;
+				    position: relative;
+				    padding-left: 30px;
+
+					.icon{
+						background-image: url(../images/iconSearch.svg);
+					    position: absolute;
+					    top: 0;
+					    left: 0;
+					    height: 30px;
+					    width: 30px;
+					    background-size: 12px;
+					    background-repeat: no-repeat;
+					    background-position: center;
+					    opacity: 0.5;
+					}
+
+					input{
+					    border: none;
+					    height: 28px;
+					    line-height: 28px;
+					    background: none;
+					    padding: 0;
+					    font-weight: 300;
+					    margin: 0;
+					    width: 100%;
+					}
+				}
+
+				.otherOptions{
+					position: absolute;
+				    top: 0;
+				    right: 0px;
+
+				    .option{
+				    	float: left;
+					    line-height: 18px;
+					    font-size: 12px;
+					    color: rgba(0,0,0,0.3);
+					    position: relative;
+					    padding-left: 30px;
+					    border-left: 1px solid rgba(0,0,0,0.1);
+					    padding-right: 20px;
+					    padding-top: 5px;
+					    padding-bottom: 5px;
+					    cursor: pointer;
+
+					    .icon{
+					    	position: absolute;
+						    top: 5;
+						    left: 0;
+						    height: 18px;
+						    width: 30px;
+						    background-size: 10px;
+						    background-repeat: no-repeat;
+						    background-position: center;
+						    opacity: 0.5;
+					    }
+
+					    .optionDetails{
+					    	display: none;
+					    	position: absolute;
+						    width: 240px;
+						    background: white;
+						    top: 28px;
+						    border: 1px solid rgba(0,0,0,0.1);
+						    z-index: 100;
+						    border-top: none;
+
+						    .optionValue{
+					    	    line-height: 30px;
+							    padding-left: 30px;
+							    padding-right: 10px;
+							    border-bottom: 1px solid rgba(0,0,0,0.05);
+							    cursor: pointer;
+
+							    &:hover{
+							    	background-color: #fafafa;
+							    }
+
+							    &.active{
+						    	    background-image: url(../images/iconTick.svg);
+								    background-size: 12px;
+								    background-repeat: no-repeat;
+								    background-position: 10px center;
+							    }
+
+							    &:last-child{
+							    	border-bottom: none;
+							    }
+						    }
+					    }
+
+					    &.open{
+					    	background: white;
+
+					    	.optionDetails{
+					    		display: block;
+					    	}
+					    }
+				    }
+				}
+
+				.optionFilter{
+
+					.optionDetails{
+						right: -75px;
+					}
+
+					.icon{
+						background-image: url("../images/iconFilter.svg");
+					}
+				}
+
+				.optionSort{
+
+					.optionDetails{
+						right: 0px;
+					}
+					
+					.icon{
+						background-image: url("../images/iconSort.svg");
+					}
+				}
+
+				.optionGroup{
+
+					.optionDetails{
+						right: 0px;
+					}
+					
+					.icon{
+						background-image: url("../images/iconGroup.svg");
+					}
+				}
+			}
+
+			.filtersAlarms{
+				display: none;
+			}
+		}
+
+		.listTitle{
+    	    font-size: 13px;
+    	    margin-top: 20px;
+		    margin-bottom: 20px;
+		    color: rgba(0,0,0,0.3);
+	    }
+
+		.patients, .patientsSearched{
+		    width: 100%;
+		    height: 100%;
+		    padding: 0px 20px;
+		    overflow: auto;
+
+		    .patientsList{
+		    	// overflow: hidden;
+				padding-left: 40px;
+		    }
+		}
+
+		.patientsSearched{
+			display: none;
+			padding-top: 20px;
+		}
+
+		.alarms, .alarmsSearched{
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+			display: none;
+
+			.listTitle{
+				padding-left: 20px;
+			}
+
+			.patientContainer{
+	    		float: none;
+			    width: 100%;
+			    margin-left: 0px !important;
+			    margin-bottom: 0px;
+			    box-shadow: none;
+		        padding-left: 20px;
+			    padding-top: 15px;
+			    padding-bottom: 15px;
+			    border-bottom: 1px solid rgba(0,0,0,0.1);
+			    position: relative;
+
+			    .patientInfo{
+			    	padding: 0;
+			    	overflow: hidden;
+			    }
+
+			    .patientName{
+			    	font-size: 18px;
+			    	float: left;
+			    	margin-bottom: 0px;
+			    }
+
+			    .patientDetails{
+			    	float: left;
+			    	margin-left: 10px;
+			    	padding-left: 1px solid rgba(0,0,0,0.1);
+			    	padding-left: 10px;
+			    	line-height: 12px;
+
+			    	.alarmDesktop{
+			    		margin-top: 0;
+			    	}
+			    }
+
+			    &:first-child{
+			    	outline: none;
+			    }
+	    	}
+
+			.alarmHistory{
+				margin-top: 10px;
+			}
+
+			.alarmItem{
+				overflow: hidden;
+				line-height: 18px;
+				color: rgba(0,0,0,0.3);
+
+				.td{
+				    float: left;
+				    font-size: 10px;
+				    width: 16%;
+				}
+
+				&.title{
+					color: $colorPrimary;
+				}
+
+				&.ongoing{
+					color: $colorError;
+				}
+			}
+		}
+
+		.patientContainer{
+		    float: left;
+		    width: 33.33%;
+		    margin-left: 20px;
+		    margin-bottom: 20px;
+		    background: white;
+		    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+
+		    &:first-child{
+		    	// outline: 5px solid $colorPrimary;
+				outline: none;
+		    }
+
+		    &:nth-child(3n+1){
+	    	   margin-left: -40px;
+		    }
+
+		    .patientInfo{
+		    	padding: 15px 20px;
+		    }
+
+		    .patientName{
+    	       font-size: 16px;
+			   color: rgba(0, 0, 0, 0.5);
+			   margin-bottom: 7px;
+			}
+
+		    .patientDetails{
+	    	    font-size: 10px;
+    			color: rgba(0,0,0,0.3);
+
+    			.alarmDesktop{
+    				margin-top: 5px;
+    				color: rgba(0,0,0,0.2);
+
+    				.condition{
+					    display: inline-block;
+					    position: relative;
+					    padding-right: 20px;
+    				}
+
+    				.moreAlarms{
+					    position: absolute;
+					    height: 18px;
+					    width: 18px;
+					    background: $colorError;
+					    border-radius: 3px;
+					    top: -2px;
+					    right: -4px;
+					    color: white;
+					    font-size: 9px;
+					    text-align: center;
+					    line-height: 18px;
+    				}
+
+    				&.active{
+    					color: $colorError;
+    				}
+    			}
+		    }
+
+		    .patientStats{
+		    	position: relative;
+			    background: rgba(0,0,0,0.01);
+			    overflow: hidden;
+			    border-top: 1px solid rgba(0,0,0,0.05);
+			    border-bottom: 1px solid rgba(0,0,0,0.05);
+			    // padding: 10px 20px;
+
+			    .kvPair{
+			    	width: 50%;
+				    float: left;
+				    text-align: center;
+			        padding-top: 10px;
+				    padding-bottom: 10px;
+				    border-bottom: 1px solid rgba(0,0,0,0.05);
+
+
+				    .key{
+				    	// float: left;
+					    color: $colorPrimary;
+					    font-size: 10px;
+					    height: 13px;
+				    }
+
+				    .value{
+			    	    // float: left;
+					    font-size: 16px;
+					    color: rgba(0,0,0,0.4);
+					    margin-top: 5px;
+				    }
+
+				    &:nth-child(2n+1){
+				    	border-right: 1px solid rgba(0,0,0,0.05);
+				    }
+
+				    &:last-child{
+				    	border-bottom: none;
+				    	width: 100%;
+				    	border-right: none;
+				    }
+
+				    &.alarm{
+				    	background: $colorError;
+
+				    	.key{
+				    		color: white;
+				    		opacity: 0.6;
+				    	}
+
+				    	.value{
+				    		color: white;
+				    	}
+				    }
+			    }
+		    }
+
+		    .actions{
+		    	overflow: hidden;
+		    	padding-top: 10px;
+		    	padding-bottom: 10px;
+		    	background: $colorPrimary;
+
+		    	.action{
+		    		width: 50%;
+		    		float: left;
+		    		line-height: 30px;
+		    		text-align: center;
+
+		    		.actionName{
+						font-size: 11px;
+						color: white;
+					    background-size: 15px;
+					    background-position: left;
+					    background-repeat: no-repeat;
+					    display: inline-block;
+					    padding-left: 22px;
+
+					    &.history{
+							background-image: url("../images/iconHistoryWhite.svg")
+					    }
+
+					    &.vitals{
+							background-image: url("../images/iconVitalsWhite.svg")
+					    }
+		    		}
+
+		    		&:first-child{
+		    			border-right: 1px solid rgba(255,255,255,0.3);
+		    		}
+		    	}
+		    }
+		}
+    }
+
+    .patientDetailsContainer{
+		position: absolute;
+		right: 0;
+		top: 0;
+		z-index: 10;
+		height: 100%;
+		width: 50%;
+		background: white;
+		box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.15);
+		padding-top: 100px;
+
+		.patientDetails{
+		    padding: 15px 20px;
+		    background: $colorPrimary;
+		    position: absolute;
+		    top: 0;
+		    left: 0;
+		    height: 100px;
+		    width: 100%;
+
+		    .patientInfo{
+
+		    	.patientName{
+		    		font-size: 24px;
+    				color: white;
+		    	}
+
+		    	.patientDescription{
+		    		font-size: 10px;
+				    color: white;
+				    margin-top: 6px;
+				    opacity: 0.7;
+		    	}
+
+		    	.currentAlarms{
+	    		    font-size: 10px;
+				    color: $colorError;
+				    margin-top: 6px;
+					float: left;
+
+		    	}
+		    }
+
+		    .actions{
+		    	position: absolute;
+		    	top: 25px;
+		    	right: 0;
+		    	// width: 200px;
+		    	overflow: hidden;
+		    	padding-top: 10px;
+		    	padding-bottom: 10px;
+		    	background: $colorPrimary;
+
+		    	.action{
+		    		width: 100px;
+		    		float: left;
+		    		line-height: 30px;
+		    		text-align: center;
+		    		border-right: 1px solid rgba(255,255,255,0.3);
+
+		    		.actionName{
+						font-size: 11px;
+						color: white;
+					    background-size: 15px;
+					    background-position: left;
+					    background-repeat: no-repeat;
+					    display: inline-block;
+					    padding-left: 22px;
+					    opacity: 0.5;
+
+					    &.history{
+							background-image: url("../images/iconHistoryWhite.svg")
+					    }
+
+					    &.vitals{
+							background-image: url("../images/iconVitalsWhite.svg")
+					    }
+
+					    &.settings{
+							background-image: url("../images/iconSettingsWhite.svg")
+					    }
+		    		}
+
+		    		&:last-child{
+		    			border-right: none;
+		    		}
+
+		    		&.active{
+		    			.actionName{
+		    				opacity: 1;
+		    			}
+		    		}
+
+		    		&.settings{
+		    			width: 50px;
+
+		    			.actionName{
+		    				background-position: center;
+		    			}
+		    		}
+		    	}
+		    }
+		}
+
+		.patientHistory{
+		    width: 100%;
+		    height: 100%;
+		    padding-top: 60px;
+		    position: relative;
+
+		    .historyOptionsContainer{
+		    	position: absolute;
+			    top: 0;
+			    left: 0;
+			    text-align: center;
+			    width: 100%;
+
+			    .historyOptions{
+		    	    border: 1px solid $colorPrimary;
+				    border-radius: 5px;
+				    width: 342px;
+				    margin-top: 15px;
+				    display: inline-block;
+				    overflow: hidden;
+			    }
+
+			    .option{
+			    	float: left;
+				    width: 33%;
+				    font-size: 10px;
+				    text-align: center;
+				    line-height: 28px;
+				    color: $colorPrimary;
+
+				    &:nth-child(2){
+			    	    width: 34%;
+					    border-left: 1px solid $colorPrimary;
+					    border-right: 1px solid $colorPrimary;
+				    }
+
+				    &.active{
+				    	background: $colorPrimary;
+				    	color: white;
+				    }
+			    }
+		    }
+
+		    .historyOptionDetails{
+	    	    position: relative;
+			    width: 100%;
+			    height: 100%;
+			    display: none;
+
+			    &.active{
+			    	display: block;
+			    }
+
+			    .config{
+			    	position: absolute;
+				    left: 0;
+				    bottom: 15px;
+				    width: 100%;
+				    text-align: center;
+
+				    .configOption{
+			    	    width: 300px;
+					    display: inline-block;
+					    text-align: left;
+					    overflow: hidden;
+
+					    .configOptionTitle{
+				    	    float: left;
+						    font-size: 12px;
+						    color: rgba(0,0,0,0.5);
+						    width: 110px;
+						    line-height: 20px;
+					    }
+
+					    .configOptionValue{
+					    	float: left;
+
+					    	.buttonMinus, .buttonPlus{
+					    		float: left;
+							    background: #4fc3f7;
+							    width: 20px;
+							    line-height: 20px;
+							    border-radius: 2px;
+							    text-align: center;
+							    color: white;
+							    height: 20px;
+					    	}
+
+					    	.value{
+					    		float: left;
+							    font-size: 12px;
+							    margin-left: 20px;
+							    margin-right: 20px;
+							    color: rgba(0,0,0,0.7);
+							    line-height: 20px;
+					    	}
+					    }
+				    }
+
+				    .radioOption{
+				    	float: left;
+					    position: relative;
+					    font-size: 12px;
+					    margin-right: 40px;
+					    color: rgba(0,0,0,0.8);
+					    line-height: 20px;
+					    height: 20px;
+					    padding-left: 18px;
+
+					    .radioOuter{
+				    	    position: absolute;
+						    height: 12px;
+						    width: 12px;
+						    border: 1px solid #4fc3f7;
+						    border-radius: 10px;
+						    left: 0px;
+						    top: 4px;
+
+						    .radioInner{
+					    	    position: absolute;
+							    height: 6px;
+							    width: 6px;
+							    background: #4fc3f7;
+							    border-radius: 10px;
+							    top: 2px;
+							    left: 2px;
+							    display: none;
+						    }
+					    }
+
+					    &.active{
+					    	.radioInner{
+					    		display: block;
+					    	}
+					    }
+				    }
+			    }
+
+			    .table{
+			    	border: 1px solid rgba(0,0,0,0.1);
+				    height: 100%;
+				    overflow: auto;
+
+				    .row{
+			    	    line-height: 40px;
+					    height: 40px;
+					    border-bottom: 1px solid rgba(0,0,0,0.1);
+					    overflow: hidden;
+					    color: rgba(0,0,0,0.6);
+
+					    &.title{
+					    	background: $colorPrimary;
+							color: white;
+					    }
+
+					    &:nth-child(2n+3){
+					    	background: #fafafa;
+					    }
+				    }
+
+				    .dt{
+				    	float: left;
+					    font-size: 10px;
+					    text-align: center;
+				    }
+			    }
+
+			    &.dataTable{
+					padding-bottom: 50px;
+				    padding-left: 20px;
+				    padding-right: 20px;
+
+				    .dt{
+				    	width: 16.6%;
+				    }
+			    }
+
+			    &.alarmHistory{
+			    	padding-bottom: 50px;
+			    	padding-left: 20px;
+			    	padding-right: 20px;
+
+			    	.dt{
+			    		width: 50%;
+			    	}
+
+			    	.configOption{
+			    		width: 550px;
+			    	}
+			    }
+
+			    &.trendGraphs{
+			    	padding-bottom: 100px;
+			    	padding-left: 20px;
+			    	padding-right: 20px;
+
+			    	.graphContainer{
+			    		width: 100%;
+					    height: 100%;
+					    background: #f1f1f1;
+					    border: 1px solid rgba(0,0,0,0.05);
+					    color: rgba(0,0,0,0.4);
+					    font-size: 28px;
+					    line-height: 300px;
+					    text-align: center;
+			    	}
+
+			    	.configOption{
+			    		width: 550px;
+			    		margin-bottom: 10px;
+
+			    		.radioOption{
+			    			width: 30px;
+			    		}
+			    	}
+			    }
+		    }
+		}
+
+		.patientLiveData{
+		    width: 100%;
+		    height: 100%;
+		    position: relative;
+		    display: none;
+
+		    .liveDataContainer{
+	    	    position: absolute;
+			    top: 0;
+			    left: 0;
+			    height: 100%;
+			    width: 100%;
+			    padding-top: 50px;
+			    padding-left: 10px;
+			    padding-right: 10px;
+			    background: #f1f1f1;
+		    }
+
+		    .row{
+	    	    height: 25%;
+			    position: relative;
+			    margin-top: 10px;
+			    position: relative;
+
+			    .dataBox{
+					box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+					background: white;
+					border-radius: 3px;
+			    }
+
+			    &.withGraph{
+			    	.dataBox{
+			    		width: 100%;
+			    		height: 100%;
+			    		padding-right: 120px;
+			    	}
+
+			    	.graph{
+		    		    width: 100%;
+					    height: 100%;
+					    background: rgba(0,0,0,0.7);
+					    border-radius: 3px 0px 0px 3px;
+			    	}
+
+			    	.readingContainer{
+		    		    position: absolute;
+					    top: 0;
+					    right: 0;
+					    width: 120px;
+					    height: 100%;
+			    	}
+			    }
+
+			    &.split{
+			    	padding-left: 10px;
+			    	overflow: hidden;
+
+			    	.dataBox{
+			    		float: left;
+			    		width: 50%;
+			    		height: 100%;
+			    		margin-left: 10px;
+
+			    		&:first-child{
+			    			margin-left: -10px;
+			    		}
+			    	}
+
+			    	.readingContainer{
+			    		width: 100%;
+			    		height: 100%;
+			    		position: relative;
+			    	}
+			    }
+
+			    &:first-child{
+			    	margin-top: -40px;
+			    }
+
+			    .readingContainer{
+
+			    	.reading{
+			    		position: absolute;
+			    		top: 50%;
+			    		left: 0;
+			    		width: 100%;
+			    		text-align: center;
+			    		transform: translateY(-50%);
+			    	}
+
+			    	.readingTitle{
+		    		    color: #4fc3f7;
+						font-size: 12px;
+			    	}
+
+			    	.readingValue{
+			    		color: rgba(0,0,0,0.5);
+					    font-size: 32px;
+					    margin-top: 5px;
+			    	}
+
+			    	.readingMeta{
+			    		color: rgba(0,0,0,0.4);
+					    font-size: 10px;
+					    margin-top: 5px;
+			    	}
+			    }
+		    }
+		}
+
+		.patientSettings{
+			width: 100%;
+			height: 100%;
+			position: relative;
+			display: none;
+
+			.settingsCategory{
+				border-bottom: 1px solid rgba(0,0,0,0.1);
+
+				.categoryTitle{
+				    height: 50px;
+					position: relative;
+
+					.categoryName{						
+					    line-height: 50px;
+					    color: rgba(0,0,0,0.5);
+					    margin-left: 30px;
+					}
+
+					.buttonExpand{
+					    position: absolute;
+					    top: 10px;
+					    right: 20px;
+					    font-family: Arial;
+					    font-weight: 300;
+					    font-size: 24px;
+					    color: rgba(0,0,0,0.2);
+					}
+				}
+
+				.categoryDetails{
+				    background: #fafafa;
+				    border-top: 1px solid rgba(0,0,0,0.1);
+				    padding: 20px 50px;
+				    font-size: 12px;
+
+				    .groupTitle{
+		    	        color: rgba(0, 0, 0, 0.7);
+						margin-bottom: 20px;
+				    }
+
+				    .groupDetails{
+				    	color: rgba(0, 0, 0, 0.4);
+    					padding-left: 20px;
+
+    					.block{
+    						margin-bottom: 15px;
+
+    						.cb{
+    							clear: both;
+    						}
+
+    						.key{
+    							float: left;
+							    width: 110px;
+							    line-height: 30px;
+    						}
+
+    						.value{
+    							float: left;
+
+    							.toggleContainer{
+								    overflow: hidden;
+    								border: 1px solid rgba(0,0,0,0.2);
+
+    								.on, .off{
+									    float: left;
+									    padding: 0px 10px;
+									    line-height: 28px;
+    								}
+
+    								.on{
+    									color: #fafafa;
+    									background: rgba(0,0,0,0.2);
+    								}
+    							}
+
+    							select{
+								    height: 30px;
+								    color: rgba(0,0,0,0.5);
+								    background-color: transparent;
+								    padding-left: 5px;
+								    font-size: 12px;
+								    border: 1px solid rgba(0,0,0,0.3);
+    							}
+
+    							.textInput{
+								    height: 30px;
+								    background: none;
+								    border: 1px solid rgba(0,0,0,0.3);
+								    color: rgba(0,0,0,0.5);
+								    padding-left: 10px;
+    							}
+    						}
+    					}
+				    }
+				}
+			}
+		}
+    }
+}
+
+// mobile specific
+
+@media (max-width: 600px) {
+  #mainContainer{
+  	min-width: 300px;
+
+  	.patientsMainContainer{
+	    padding-top: 40px;
+    	padding-bottom: 50px;
+    	width: 100%;
+
+    	.header{
+    		top: initial;
+    		bottom: 0;
+    		background: $colorPrimary;
+
+    		.logo, .refreshBlock{
+    			display: none;
+    		}
+
+    		.tabs{
+			    width: 100%;
+			    float: none;
+			    margin-right: 0px;
+
+			    .tab{
+			    	margin-left: 0px;
+				    text-align: center;
+				    width: 50%;
+				    color: white;
+				    opacity: 0.4;
+
+				    .icon{
+				    	margin-top: 0;
+				    	float: none;
+				    	vertical-align: middle;
+				    	display: inline-block;
+				    }
+
+				    .tabLabel{
+				    	float: none;
+				    	vertical-align: middle;
+				    	display: inline-block;
+				    }
+
+				    &.active{
+						color: white;
+						opacity: 1;
+				    }
+
+				    &.tabAlarms{
+						.icon{
+							background-image: url("../images/iconAlarmWhite.svg")
+						}
+
+						&.active{
+							.icon{
+								background-image: url("../images/iconAlarmWhite.svg")
+							}
+						}
+				    }
+
+				    &.tabPatients{
+						.icon{
+							background-image: url("../images/iconListWhite.svg")
+						}
+
+						&.active{
+							.icon{
+								background-image: url("../images/iconListWhite.svg")
+							}
+						}
+				    }
+			    }
+    		}
+    	}
+
+    	.mobileHeader{
+    		position: absolute;
+    		top: 0;
+    		left: 0;
+    		width: 100%;
+    		height: 40px;
+    		background: $colorPrimary;
+    		padding-left: 20px;
+    		padding-right: 20px;
+    		display: block;
+    		line-height: 40px;
+
+    		.headerTitle{
+				color: white;
+    			font-size: 13px;
+    			float: left;
+    		}
+
+    		.refreshBlock{
+				font-size: 9px;
+				float: right;
+
+				.status{
+					float: left;
+					color: white;
+					opacity: 0.4;
+				}
+
+				.button{
+					float: left;
+					color: white;
+					opacity: 1;
+					margin-left: 10px;
+				}
+    		}
+    	}
+
+    	.listTitle{
+		    margin-top: 10px;
+		    margin-bottom: 10px;
+		    padding-left: 20px
+		}
+
+    	.patients, .patientsSearched{
+    		padding: 0;
+
+    		.patientsList{
+    			padding-left: 0px;
+    		}
+    	}
+
+    	.patientsSearched{
+    		padding-top: 0;
+    	}
+
+    	.patientContainer{
+    		float: none;
+		    width: 100%;
+		    margin-left: 0px !important;
+		    margin-bottom: 0px;
+		    box-shadow: none;
+	        padding-left: 20px;
+		    padding-top: 15px;
+		    padding-bottom: 15px;
+		    border-bottom: 1px solid rgba(0,0,0,0.1);
+		    position: relative;
+
+		    .patientInfo{
+		    	padding: 0;
+		    	overflow: hidden;
+		    }
+
+		    .patientName{
+		    	font-size: 18px;
+		    	float: left;
+		    	margin-bottom: 0px;
+		    }
+
+		    .patientDetails{
+		    	float: left;
+		    	margin-left: 10px;
+		    	padding-left: 1px solid rgba(0,0,0,0.1);
+		    	padding-left: 10px;
+		    	line-height: 12px;
+
+		    	.alarmDesktop{
+		    		margin-top: 0;
+
+		    		.moreAlarms{
+	    			    background: none;
+					    color: inherit;
+					    position: static;
+					    display: inline-block;
+		    		}
+		    	}
+		    }
+
+		    .patientStats{
+		    	background: white;
+		    	border-top: none;
+		    	border-bottom: none;
+		    	overflow: hidden;
+		    	margin-top: 10px;
+
+		    	.kvPair{
+		    		border-right: none !important;
+		    		width: auto !important;
+		    		padding-top: 0;
+		    		padding-bottom: 0;
+		    		margin-right: 15px;
+		    		border-bottom: none;
+
+		    		.key{
+						font-size: 9px;
+		    		}
+
+		    		.value{
+						font-size: 14px;
+		    		}
+
+		    		&.alarm{
+		    			background: none;
+
+		    			.key{
+		    				color: $colorError;
+		    			}
+
+		    			.value{
+		    				color: $colorError;
+		    			}
+		    		}
+		    	}
+		    }
+
+		    .actions{
+	    	    background: white;
+			    position: absolute;
+			    top: 35px;
+			    right: 0px;
+			    height: 33px;
+			    width: 70px;
+			    border-left: 1px solid rgba(0,0,0,0.1);
+
+				.action{
+				    width: auto;
+				    position: absolute;
+				    top: 50%;
+				    left: 50%;
+				    transform: translateX(-50%) translateY(-50%);
+
+					.actionName{
+					    padding-left: 0px;
+					    padding-top: 16px;
+					    background-position: center top;
+					    background-size: 20px;
+					    text-transform: uppercase;
+					    color: $colorPrimary;
+					    font-size: 9px;
+
+					    &.vitals{
+					    	background-image: url("../images/iconVitalsActive.svg")
+					    }
+					}
+
+					&:first-child{
+						display: none;
+					}
+				}
+		    }
+
+		    &.alarm{
+
+		    	.patientName{
+		    		color: $colorError;
+		    	}
+		    }
+
+		    &:first-child{
+		    	outline: none;
+		    }
+    	}
+  	}
+
+  	.patientDetailsContainer{
+  		display: none;
+  		width: 100%;
+
+  		.patientDetails{
+  			padding-left: 50px;
+
+			.buttonBack{
+				background-image: url("../images/iconLeftWhite.svg");
+			    position: absolute;
+			    top: 0;
+			    height: 100%;
+			    width: 50px;
+			    left: 0px;
+			    background-size: 20px;
+			    background-position: center;
+			    background-repeat: no-repeat;
+			}
+
+  			.actions{
+  				top: 20px;
+  				width: 150px;
+
+  				.action{
+  					.actionName{
+						padding-left: 0;
+					    padding-top: 15px;
+					    background-position: top center;
+  					}
+  				}
+  			}
+  		}
+
+  		.patientHistory{
+  			.historyOptionDetails{
+
+
+  				.config{
+  					.configOption{
+  						.configOptionValue{
+  							width: 200px;
+  						}
+  					}
+  				}
+
+  				&.dataTable{
+  					.config{
+  						.configOptionValue{
+  							width: 120px;
+  						}
+  					}
+  				}
+
+  				&.trendGraphs{
+  					padding-bottom: 140px;
+
+  					.configOption{
+  						width: 300px;
+  					}
+
+  					.config{
+  						.configOptionValue{
+  							width: 180px;
+  						}
+  					}
+  				}
+
+  				&.alarmHistory{
+  					padding-bottom: 90px;
+
+  					.configOption{
+  						width: 300px;
+  					}
+
+  					.config{
+  						.configOptionValue{
+  							width: 180px;
+  						}
+  					}
+  				}
+  			}
+  		}
+  	}
+
+  	&.showingDetails{
+  		.patientsMainContainer{
+  			display: none;
+  		}
+  		.patientDetailsContainer{
+  			display: block;
+  		}
+  	}
+
+  }
+}
+
+@media (min-width: 600px) {
+	#mainContainer .patientsMainContainer .alarms .patientContainer, #mainContainer .patientsMainContainer .alarmsSearched .patientContainer{
+		&:first-child{
+			background: $colorPrimary;
+
+			.patientName{
+				color: white;
+			}
+
+			.patientDetails{
+				color: rgba(255, 255, 255, 0.8);
+			}
+
+			.alarmDesktop{
+				color: rgba(255, 255, 255, 0.8);
+			}
+
+			.alarmHistory .alarmItem{
+				color: rgba(255, 255, 255, 0.8);
+
+				&.title{
+					color: white;
+				}
+			}
+		}
+	}
+}
